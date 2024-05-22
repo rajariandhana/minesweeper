@@ -5,66 +5,90 @@
     -ms-user-select: none; /* Internet Explorer/Edge */
 }
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-@import url(https://db.onlinewebfonts.com/c/14936bb7a4b6575fd2eee80a3ab52cc2?family=Feather+Bold);
-@import url(https://db.onlinewebfonts.com/c/f83531ae85a3fcd9345c4267e28833ee?family=DIN+Next+Rounded+LT+Pro+Medium);
 :root
 {
-    --black:#1d313c;
-    --black1:#415F6F;
-    --blue:#50a3ab;
-    --beige:#fadac1;
-    --orange:#f6723a;
-    --red:#c43b39;
-
-    --tileDark1:#1d313c;
-    --tileDark2:#415F6F;
-    --tileLight1:#E5B998;
-    --tileLight2:#fadac1;
-
     --tileGreen1:#B3D565;
     --tileGreen2:#ACCF5E;
     --tileBeige1:#DFC3A3;
     --tileBeige2:#D2B99D;
-    
+
+    --white:#E2E4E8;
+    --black:#25292E;
+
+    --blue:#182335;
+    --red:#e15546;
+    --pink:#eeaf9d;
+    --beige:#eae4cc;
+    /* --navy:#01204e; */
 }
+*
+{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+  
 body
 {
-    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--blue);
+    color: var(--beige);
     font-size: 2em;
-    /* font-weight: bold; */
     font-family: "Poppins", sans-serif;
-    font-family: "DIN Next Rounded LT Pro Medium";
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    width: 100%;
+    /* height: 1vh; */
+}
+#title
+{
+    margin-top: .5em;
+    font-family: "Honk", system-ui;
+}
+#n_mines
+{
+    margin-top: 2em;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 table
 {
-    border-collapse: collapse;
+    margin-top: .3em;
+    /* border-collapse: collapse; */
+    border: .5em solid var(--beige);
+    border-radius: .5em;
 }
-th, td
+td
 {
-    background-color: #efefef;
+    /* background-color: #efefef; */
     /* border: 1px solid black; */
-    width: 50px;
-    height: 50px;
+    width: 1.3em;
+    height: 1.3em;
+    
     text-align: center;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
 }
 
-.tileGreenLight
+.unrevealed
 {
-    background-color: var(--tileGreen2);
+    background-color: var(--red);
 }
-.tileGreenDark
+.revealed
 {
-    background-color: var(--tileGreen1);
+    background-color: var(--pink);
 }
-.tileBeigeLight
+
+#playAgain
 {
-    background-color: var(--tileBeige2);
-}
-.tileBeigeDark
-{
-    background-color: var(--tileBeige1);
+    background-color: var(--beige);
+    font-family: "Honk", system-ui;
+    color: var(--blue);
+    margin-top: .3em;
+    font-size: 1em;
+    padding: .3em 1em;
+    border-radius: .3em;
 }

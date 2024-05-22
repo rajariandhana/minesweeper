@@ -12,7 +12,7 @@ function GenerateGrid()
             let cell = document.createElement('td');
             cell.id = r.toString()+c.toString();
             // cell.textContent = 0;
-            cell.addEventListener('mousedown',Setup);
+            cell.addEventListener('mousedown',FirstClick);
             cell.addEventListener('contextmenu',function(event){
                 event.preventDefault();
             });
@@ -20,8 +20,9 @@ function GenerateGrid()
             rowList.push(0);
             revList.push(false);
 
-            if(flip) cell.className = 'tileGreenLight';
-            else cell.className = 'tileGreenDark';
+            cell.classList.add('unrevealed');
+            // if(flip) cell.classList.add('light');
+            // else cell.className = 'dark';
             flip = !flip;
         }
         if(size%2==0) flip = !flip;
@@ -29,8 +30,7 @@ function GenerateGrid()
         myGrid.push(rowList);
         revealed.push(revList);
     }
-    console.log(myGrid);
-    gridGenerated=true;
+    // console.log(myGrid);
 }
 function GenerateBombs(safeR,safeC)
 {
@@ -45,7 +45,7 @@ function GenerateBombs(safeR,safeC)
             bombs.push([r,c]);
         }
     }
-    console.log("done");
+    // console.log("bombs generated");
     UpdateGrid();
 }
 function UpdateGrid()
@@ -126,7 +126,7 @@ function BFS(r,c)
             vis[nr][nc]=true;
         }
     }
-    console.log(myGrid);
+    // console.log(myGrid);
 
 }
 function GetCell(r,c)
@@ -147,8 +147,8 @@ function BeigeCell(cell,word)
     revealed[parseInt(cell.id.charAt(0),10)][parseInt(cell.id.charAt(1),10)]=true;
     not_revealed -= 1;
     if(word) cell.textContent = word;
-    if(cell.className=='tileGreenLight') cell.className = 'tileBeigeLight';
-    else if(cell.className=='tileGreenDark') cell.className = 'tileBeigeDark';
+    cell.classList.remove('unrevealed');
+    cell.classList.add('revealed');
 }
 
 function RevealBombs()
@@ -162,5 +162,3 @@ function RevealBombs()
         cell.textContent = myGrid[r][c];
     }
 }
-
-GenerateGrid();

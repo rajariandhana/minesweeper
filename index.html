@@ -1,25 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minesweeper</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Honk&family=Jacquard+12&display=swap');
+        </style>
     <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
-    <h1>Minesweeper</h1>
-    <table>
-        <tbody id="gridBody">
-            <!-- <tr>
-                <td>test</td>
-                <td>test</td>
-            </tr> -->
-        </tbody>
-    </table>
-    <h2 id="message"></h2>
+    <h1 id="title">Minesweeper</h1>
+    <h6 id="n_mines">Mines: </h6>
+    <div class="grid">
+        <table>
+            <tbody id="gridBody">
+            </tbody>
+        </table>
+    </div>
+    <!-- <div id="finishDiv"> -->
+    <a href="/" id="playAgain">
+        Reset
+    </a>
+    <!-- </div> -->
 
     <script src="queue.js"></script>
     <script src="controller.js"></script>
     <script src="grid.js"></script>
 </body>
+
 </html>
