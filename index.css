@@ -4,10 +4,36 @@
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* Internet Explorer/Edge */
 }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url(https://db.onlinewebfonts.com/c/14936bb7a4b6575fd2eee80a3ab52cc2?family=Feather+Bold);
+@import url(https://db.onlinewebfonts.com/c/f83531ae85a3fcd9345c4267e28833ee?family=DIN+Next+Rounded+LT+Pro+Medium);
+:root
+{
+    --black:#1d313c;
+    --black1:#415F6F;
+    --blue:#50a3ab;
+    --beige:#fadac1;
+    --orange:#f6723a;
+    --red:#c43b39;
+
+    --tileDark1:#1d313c;
+    --tileDark2:#415F6F;
+    --tileLight1:#E5B998;
+    --tileLight2:#fadac1;
+
+    --tileGreen1:#B3D565;
+    --tileGreen2:#ACCF5E;
+    --tileBeige1:#DFC3A3;
+    --tileBeige2:#D2B99D;
+    
+}
 body
 {
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 2em;
     /* font-weight: bold; */
+    font-family: "Poppins", sans-serif;
+    font-family: "DIN Next Rounded LT Pro Medium";
 }
 
 table
@@ -17,10 +43,27 @@ table
 th, td
 {
     background-color: #efefef;
-    border: 1px solid black;
+    /* border: 1px solid black; */
     width: 50px;
     height: 50px;
     text-align: center;
     justify-content: center;
     align-items: center;
+}
+
+.tileGreenLight
+{
+    background-color: var(--tileGreen2);
+}
+.tileGreenDark
+{
+    background-color: var(--tileGreen1);
+}
+.tileBeigeLight
+{
+    background-color: var(--tileBeige2);
+}
+.tileBeigeDark
+{
+    background-color: var(--tileBeige1);
 }
