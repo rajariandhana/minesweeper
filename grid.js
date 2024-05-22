@@ -1,9 +1,4 @@
-let gridBody = document.getElementById('gridBody');
-
-let myGrid = [];
-let revealed = [];
-let bombs = [];
-let colors = ['black','blue','green','red','purple','orange','aqua','']
+// aowkoawkoawkow
 function GenerateGrid()
 {
     let flip=true;
@@ -17,7 +12,7 @@ function GenerateGrid()
             let cell = document.createElement('td');
             cell.id = r.toString()+c.toString();
             // cell.textContent = 0;
-            cell.addEventListener('mousedown',Click);
+            cell.addEventListener('mousedown',Setup);
             cell.addEventListener('contextmenu',function(event){
                 event.preventDefault();
             });
@@ -29,25 +24,29 @@ function GenerateGrid()
             else cell.className = 'tileGreenDark';
             flip = !flip;
         }
-        flip = !flip;
+        if(size%2==0) flip = !flip;
         gridBody.appendChild(newRow);
         myGrid.push(rowList);
         revealed.push(revList);
     }
     console.log(myGrid);
+    gridGenerated=true;
 }
-function GenerateBombs()
+function GenerateBombs(safeR,safeC)
 {
     while(bombs.length < n_bombs)
     {
         let r = Math.floor(Math.random() * size);
         let c = Math.floor(Math.random() * size);
+        if(r==safeR && c==safeC) continue;
         if(myGrid[r][c] == 0)
         {
             myGrid[r][c] = emo_bomb;
             bombs.push([r,c]);
         }
     }
+    console.log("done");
+    UpdateGrid();
 }
 function UpdateGrid()
 {
@@ -113,7 +112,7 @@ function BFS(r,c)
         }
         else
         {
-            BeigeCell(cell,null);
+            BeigeCell(cell,'');
         }
         for(let i=0;i<8;i++)
         {
@@ -144,32 +143,14 @@ function NotZeroNotBomb(r,c)
 }
 function BeigeCell(cell,word)
 {
+    if(revealed[parseInt(cell.id.charAt(0),10)][parseInt(cell.id.charAt(1),10)]) return;
     revealed[parseInt(cell.id.charAt(0),10)][parseInt(cell.id.charAt(1),10)]=true;
-    toReveal -= 1;
+    not_revealed -= 1;
     if(word) cell.textContent = word;
     if(cell.className=='tileGreenLight') cell.className = 'tileBeigeLight';
     else if(cell.className=='tileGreenDark') cell.className = 'tileBeigeDark';
 }
 
-function RevealCell(r,c)
-{
-    let cell = GetCell(r,c);
-    if(myGrid[r][c]==0)
-    {
-        // cell.textContent = "REV";
-        if(cell.className=='tileGreenLight') cell.className = 'tileBeigeLight';
-        else if(cell.className=='tileGreenDark') cell.className = 'tileBeigeDark';
-        // myGrid[r][c]='REV';
-    }
-    else
-    {
-        cell.textContent = myGrid[r][c];
-    }
-    // else if(myGrid[r][c]==emo_bomb)
-    // {
-    //     cell.textContent = emo_bomb;
-    // }
-}
 function RevealBombs()
 {
     for(let i=0; i<bombs.length; i++)
@@ -183,5 +164,3 @@ function RevealBombs()
 }
 
 GenerateGrid();
-GenerateBombs();
-UpdateGrid();
