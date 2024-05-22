@@ -45,15 +45,20 @@ function UpdateGrid()
     {
         for(let c=0; c<size; c++)
         {
-            if(myGrid[r][c]==emo_bomb) PlusSurround(r,c);
+            if(myGrid[r][c]==emo_bomb)
+            {
+                for(let i=0; i<8; i++)
+                {
+                    PlusSurroundHelper(r+movR[i],c+movC[i]);
+                }
+            }
         }
     }
     for(let r=0; r<size; r++)
     {
         for(let c=0; c<size; c++)
         {
-            let cellID = r.toString()+c.toString();
-            let cell = document.getElementById(cellID);
+            let cell = GetCell(r,c);
             cell.textContent = myGrid[r][c];
             cell.style.color = myGrid[r][c]==emo_bomb? 'black':colors[myGrid[r][c]];
         }
@@ -62,21 +67,54 @@ function UpdateGrid()
 
 function PlusSurroundHelper(r,c)
 {
-    if(0<=r && r<size && 0<=c && c<size)
-    {
-        if(myGrid[r][c]!=emo_bomb) myGrid[r][c]++;
-    }
+    if(!CellValid(r,c)) return;
+    if(myGrid[r][c] != emo_bomb) myGrid[r][c]++;
 }
-function PlusSurround(r,c)
+function CellValid(r,c)
 {
-    PlusSurroundHelper(r-1,c-1);
-    PlusSurroundHelper(r-1,c);
-    PlusSurroundHelper(r-1,c+1);
-    PlusSurroundHelper(r-1,c-1);
-    PlusSurroundHelper(r+1,c+1);
-    PlusSurroundHelper(r+1,c-1);
-    PlusSurroundHelper(r+1,c);
-    PlusSurroundHelper(r+1,c+1);
+    return (r<0 || r>=size || c<0 || c>=size)? false:true;
+}
+
+function BFS(r,c)
+{
+    let vis=[];
+    for(let r=0;r<size;r++)
+    {
+        let rowVis=[];
+        for(let c=0;c<size;c++) rowVis.push(false);
+        vis.push(rowVis);
+    }
+    let q = new Queue();
+    q.enqueue([r,c]);
+    vis[r][c] = true;
+    while(!q.isEmpty())
+    {
+        let cur = q.dequeue();
+        let cr = cur[0];
+        let cc = cur[1];
+        if(myGrid[cr][cc]!=0) continue;
+        let cell = GetCell(cr,cc);
+        cell.textContent = 'VIS';
+        for(let i=0;i<8;i++)
+        {
+            let nr = cr+movR[i];
+            let nc = cc+movC[i];
+            if(!CellValid(nr,nc)) continue;
+            if(vis[nr][nc]) continue;
+            if(myGrid[nr][nc]!=0) continue;
+            q.enqueue([nr,nc]);
+            console.log("push "+nr+" "+nc);
+            vis[nr][nc]=true;
+        }
+    }
+
+}
+function GetCell(r,c)
+{
+    if(!CellValid) return null;
+    let cellID = r.toString()+c.toString();
+    let cell = document.getElementById(cellID);
+    return cell;
 }
 
 GenerateGrid();
