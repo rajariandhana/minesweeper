@@ -8,10 +8,13 @@ const movC=[-1,0,1,-1,1,-1,0,1];
 let isPlaying=false;
 let gridBody = document.getElementById('gridBody');
 let n_mines = document.getElementById('n_mines');
-n_mines.textContent = 'There are '+n_bombs+' mines';
+n_mines.textContent = 'There are '+n_bombs+' '+emo_bomb;
 // let finishDiv = document.getElementById('finishDiv');
-let playAgain = document.getElementById('playAgain');
-playAgain.style.display = 'none';
+let reset = document.getElementById('reset');
+reset.style.display = 'none';
+let mode = document.getElementById('mode');
+mode.style.display = 'none';
+let currentMode = emo_bomb;
 
 let myGrid = [];
 let revealed = [];
@@ -23,14 +26,25 @@ function Setup()
     revealed = [];
     bombs = [];
 }
+function Mode()
+{
+    // if(!isPlaying) return;
+    currentMode = (currentMode==emo_bomb)? emo_flag : emo_bomb;
+    mode.textContent = 'Mode: '+currentMode;
+}
 function FirstClick(event)
 {
     if(event.button!==0) return;
     // console.log("FirstClick");
-    playAgain.style.display = 'flex';
+    reset.style.display = 'flex';
     let cell = event.target;
     let r = parseInt(cell.id.charAt(0),10);
     let c = parseInt(cell.id.charAt(1),10);
+    
+    if(window.innerWidth<=768)
+    {
+        mode.style.display='flex';
+    }
     
     GenerateBombs(r,c);
 
@@ -52,7 +66,7 @@ function CellClick(event)
     let r = parseInt(cell.id.charAt(0),10);
     let c = parseInt(cell.id.charAt(1),10);
     
-    if(event.button===0) //left click
+    if(event.button===0 && currentMode===emo_bomb) //left click
     {
         if(revealed[r][c]) return;
         if(cell.textContent==emo_flag) return;
@@ -75,7 +89,7 @@ function CellClick(event)
             Win(true);
         }
     }
-    else if(event.button === 2) //right click
+    else if(event.button === 2 || currentMode===emo_flag) //right click
     {
         // event.target.style.backgroundColor = "blue";
         Flag(cell,r,c);
@@ -101,16 +115,17 @@ function Flag(cell,r,c)
 function Win(win)
 {
     isPlaying=false;
+    mode.style.display = 'none';
     if(win)
     {
-        playAgain.textContent = 'You win! play again';
+        reset.textContent = 'You win! play again';
     }
     else
     {
-        playAgain.textContent = 'Oh no you lost, go play again';
+        reset.textContent = 'Oh no you lost, go play again';
     }
 }
 
 document.addEventListener('DOMContentLoaded',function(){
-GenerateGrid();
+    GenerateGrid();
 });

@@ -11,7 +11,7 @@ function GenerateGrid()
         {
             let cell = document.createElement('td');
             cell.id = r.toString()+c.toString();
-            // cell.textContent = 0;
+            cell.textContent = '';
             cell.addEventListener('mousedown',FirstClick);
             cell.addEventListener('contextmenu',function(event){
                 event.preventDefault();
