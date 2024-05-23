@@ -57,7 +57,8 @@ function FirstClick(event)
 
     isPlaying = true;
     CellClick(event);
-
+    timeDisplay.style.visibility = 'visible';
+    StartStopwatch();
 }
 function CellClick(event)
 {
@@ -114,6 +115,7 @@ function Flag(cell,r,c)
 }
 function Win(win)
 {
+    StopStopwatch();
     isPlaying=false;
     mode.style.display = 'none';
     if(win)

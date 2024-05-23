@@ -38,6 +38,7 @@ body
     color: var(--beige);
     font-size: 2em;
     font-family: "Poppins", sans-serif;
+    /* font-family: 'Courier New', Courier, monospace; */
     display: flex;
     flex-direction: column;
     /* justify-content: center; */
@@ -52,8 +53,13 @@ body
 }
 #n_mines
 {
-    margin-top: 2em;
+    margin-top: 0em;
     font-family: 'Courier New', Courier, monospace;
+}
+#timeDisplay
+{
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
 }
 
 table
