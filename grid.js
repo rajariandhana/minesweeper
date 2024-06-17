@@ -2,15 +2,15 @@
 function GenerateGrid()
 {
     let flip=true;
-    for(let r=0; r<size; r++)
+    for(let r=0; r<n_rows; r++)
     {
         let newRow = document.createElement('tr');
         let rowList = [];
         let revList = [];
-        for(let c=0; c<size; c++)
+        for(let c=0; c<n_cols; c++)
         {
             let cell = document.createElement('td');
-            cell.id = r.toString()+c.toString();
+            cell.id = r.toString()+'_'+c.toString();
             cell.textContent = '';
             cell.addEventListener('mousedown',FirstClick);
             cell.addEventListener('contextmenu',function(event){
@@ -23,9 +23,9 @@ function GenerateGrid()
             cell.classList.add('unrevealed');
             // if(flip) cell.classList.add('light');
             // else cell.className = 'dark';
-            flip = !flip;
+            // flip = !flip;
         }
-        if(size%2==0) flip = !flip;
+        // if(size%2==0) flip = !flip;
         gridBody.appendChild(newRow);
         myGrid.push(rowList);
         revealed.push(revList);
@@ -36,8 +36,8 @@ function GenerateBombs(safeR,safeC)
 {
     while(bombs.length < n_bombs)
     {
-        let r = Math.floor(Math.random() * size);
-        let c = Math.floor(Math.random() * size);
+        let r = Math.floor(Math.random() * n_rows);
+        let c = Math.floor(Math.random() * n_cols);
         if(r==safeR && c==safeC) continue;
         if(myGrid[r][c] == 0)
         {
@@ -50,9 +50,9 @@ function GenerateBombs(safeR,safeC)
 }
 function UpdateGrid()
 {
-    for(let r=0; r<size; r++)
+    for(let r=0; r<n_rows; r++)
     {
-        for(let c=0; c<size; c++)
+        for(let c=0; c<n_cols; c++)
         {
             if(myGrid[r][c]==emo_bomb)
             {
@@ -63,9 +63,9 @@ function UpdateGrid()
             }
         }
     }
-    for(let r=0; r<size; r++)
+    for(let r=0; r<n_rows; r++)
     {
-        for(let c=0; c<size; c++)
+        for(let c=0; c<n_cols; c++)
         {
             let cell = GetCell(r,c);
             // cell.textContent = myGrid[r][c];
@@ -81,16 +81,16 @@ function PlusSurroundHelper(r,c)
 }
 function CellValid(r,c)
 {
-    return (r<0 || r>=size || c<0 || c>=size)? false:true;
+    return (r<0 || r>=n_rows || c<0 || c>=n_cols)? false:true;
 }
 
 function BFS(r,c)
 {
     let vis=[];
-    for(let r=0;r<size;r++)
+    for(let r=0;r<n_rows;r++)
     {
         let rowVis=[];
-        for(let c=0;c<size;c++) rowVis.push(false);
+        for(let c=0;c<n_cols;c++) rowVis.push(false);
         vis.push(rowVis);
     }
     let q = new Queue();
@@ -132,7 +132,7 @@ function BFS(r,c)
 function GetCell(r,c)
 {
     if(!CellValid) return null;
-    let cellID = r.toString()+c.toString();
+    let cellID = r.toString()+'_'+c.toString();
     let cell = document.getElementById(cellID);
     return cell;
 }
@@ -143,8 +143,11 @@ function NotZeroNotBomb(r,c)
 }
 function BeigeCell(cell,word)
 {
-    if(revealed[parseInt(cell.id.charAt(0),10)][parseInt(cell.id.charAt(1),10)]) return;
-    revealed[parseInt(cell.id.charAt(0),10)][parseInt(cell.id.charAt(1),10)]=true;
+    let parts = cell.id.split('_');
+    let r = parseInt(parts[0],10);
+    let c = parseInt(parts[1],10);
+    if(revealed[r][c]) return;
+    revealed[r][c]=true;
     not_revealed -= 1;
     if(word) cell.textContent = word;
     cell.classList.remove('unrevealed');

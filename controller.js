@@ -1,8 +1,13 @@
-const size = 10;
-const n_bombs = 10;
+const size = 20;
+const easy_r=8;
+const easy_c=10;
+const easy_b=10;
+let n_rows=easy_r;
+let n_cols=easy_c;
+let n_bombs = easy_b;
 const emo_bomb = '💣'
 const emo_flag = '🏴‍☠️'
-let not_revealed = (size*size);
+let not_revealed = (n_rows*n_cols);
 const movR=[-1,-1,-1,0,0,1,1,1];
 const movC=[-1,0,1,-1,1,-1,0,1];
 let isPlaying=false;
@@ -38,8 +43,9 @@ function FirstClick(event)
     // console.log("FirstClick");
     reset.style.display = 'flex';
     let cell = event.target;
-    let r = parseInt(cell.id.charAt(0),10);
-    let c = parseInt(cell.id.charAt(1),10);
+    let parts = cell.id.split('_');
+    let r = parseInt(parts[0],10);
+    let c = parseInt(parts[1],10);
     
     if(window.innerWidth<=768)
     {
@@ -64,8 +70,9 @@ function CellClick(event)
 {
     if(!isPlaying) return;
     let cell = event.target;
-    let r = parseInt(cell.id.charAt(0),10);
-    let c = parseInt(cell.id.charAt(1),10);
+    let parts = cell.id.split('_');
+    let r = parseInt(parts[0],10);
+    let c = parseInt(parts[1],10);
     
     if(event.button===0 && currentMode===emo_bomb) //left click
     {
