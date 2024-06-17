@@ -4,7 +4,6 @@ let timeDisplay = document.getElementById('timeDisplay');
 timeDisplay.style.visibility = 'hidden';
 
 function FormatTime(secs) {
-    // const hrs = Math.floor(secs / 3600);
     const mins = Math.floor((secs % 3600) / 60);
     const sec = secs % 60;
     return `${mins.toString().padStart(2, '0')}:${sec.toString().padStart(2, '0')}`;
@@ -15,7 +14,7 @@ function updateDisplay() {
 }
 
 function StartStopwatch() {
-    if (intervalId !== null) return; // Prevent multiple intervals
+    if (intervalId !== null) return;
     intervalId = setInterval(() => {
         seconds++;
         updateDisplay();
@@ -32,10 +31,4 @@ function ResetStopwatch() {
     seconds = 0;
     updateDisplay();
 }
-
-// document.getElementById('startButton').addEventListener('click', startStopwatch);
-// document.getElementById('stopButton').addEventListener('click', stopStopwatch);
-// document.getElementById('resetButton').addEventListener('click', resetStopwatch);
-
-// Initialize display
 updateDisplay();

@@ -1,4 +1,3 @@
-// aowkoawkoawkow
 function GenerateGrid()
 {
     let flip=true;
@@ -21,8 +20,6 @@ function GenerateGrid()
             revList.push(false);
 
             cell.classList.add('unrevealed');
-            // if(flip) cell.classList.add('light');
-            // else cell.className = 'dark';
             flip = !flip;
         }
         if(size%2==0) flip = !flip;
@@ -30,7 +27,7 @@ function GenerateGrid()
         myGrid.push(rowList);
         revealed.push(revList);
     }
-    // console.log(myGrid);
+
 }
 function GenerateBombs(safeR,safeC)
 {
@@ -45,7 +42,7 @@ function GenerateBombs(safeR,safeC)
             bombs.push([r,c]);
         }
     }
-    // console.log("bombs generated");
+
     UpdateGrid();
 }
 function UpdateGrid()
@@ -68,7 +65,7 @@ function UpdateGrid()
         for(let c=0; c<size; c++)
         {
             let cell = GetCell(r,c);
-            // cell.textContent = myGrid[r][c];
+
             cell.style.color = myGrid[r][c]==emo_bomb? 'black':colors[myGrid[r][c]];
         }
     }
@@ -122,7 +119,7 @@ function BFS(r,c)
             if(vis[nr][nc]) continue;
             if(myGrid[nr][nc]==emo_bomb) continue;
             q.enqueue([nr,nc]);
-            // console.log("push "+nr+" "+nc);
+
             vis[nr][nc]=true;
         }
     }
